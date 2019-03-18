@@ -20,7 +20,7 @@
             <option value="x">x</option>
         </select>
         <input id="num2" placeholder="숫자 2">
-        <button onclick="send()">전송</button>
+        <button onclick="send1()">전송</button>
         <div id = "display-response"></div>
     </div>
     <script>
@@ -37,6 +37,29 @@
             }catch (err) {
                 $('#display-response').html(JSON.stringify(err));
             }finally {$('#display-response').html($('#display-response').html()+'<br>계산 끝!');}
+
+        }
+        async function send1() {
+            let num1 = $('#num1').val();
+            let num2 = $('#num2').val();
+            let symbol = $('#sym').val()
+
+            $.ajax({
+                url: '/calc/'+num1+'/'+num2+'/'+symbol,
+                type: 'GET',
+                async: true,
+                success: function(response) {
+                    $('#display-response').html(JSON.stringify(response));
+                },
+                error: function (err) {
+                    $('#display-response').html(JSON.stringify(err));
+
+                },
+                complete:  function () {
+                    $('#display-response').html($('#display-response').html()+'<br>계산 끝!');
+
+                }
+            });
         }
     </script>
 </section>
